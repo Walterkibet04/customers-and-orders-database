@@ -6,6 +6,7 @@ from .models import Order, Customer
 from rest_framework.views import APIView
 from .serializers import CustomerSerializer, OrderSerializer
 
+
 # Create your views here.
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -25,9 +26,20 @@ class OrderViewSet(viewsets.ModelViewSet):
         return response
 
 
+    def send_sms(self, order):
+        recipients = {customer.phoneNumber}
+        message = f"Hi {customer.name}, your order for {order.item} has been placed successfully"
+
+        sender = "19997"
 
 
-
+        response = sms.send(message, [order.customer.phoneNumber])
+        return response
+        # try:
+        #     response = self.sms.send(message, recipients)
+        #     print(response)
+        # except Exception as e:
+        #     print (f'Walter, we have a problem: {e}')
 
 
 
