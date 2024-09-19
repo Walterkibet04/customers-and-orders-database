@@ -64,13 +64,13 @@ class TestOrderAPI(TestCase):
             "item": "milk",
             "amount": 65
         }
-    # @patch('orders.views.OrderViewSet.send_sms')  # mock sending sms
-    # def test_create_order(self, mock_send_sms):
-    #     mock_send_sms.return_value = 'fake_message_sid' 
-    #     response = self.client.post(reverse('order-list'), self.order_data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     self.assertEqual(Order.objects.count(), 1)
-    #     self.assertEqual(Order.objects.get().item, "milk")
-    #     mock_send_sms.assert_called_once() 
+    @patch('orders.views.OrderViewSet.send_sms')  # mock sending sms
+    def test_create_order(self, mock_send_sms):
+        mock_send_sms.return_value = 'fake_message_sid' 
+        response = self.client.post(reverse('order-list'), self.order_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Order.objects.count(), 1)
+        self.assertEqual(Order.objects.get().item, "milk")
+        mock_send_sms.assert_called_once() 
 
         

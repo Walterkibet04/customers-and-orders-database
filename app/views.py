@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from .models import Order, Customer
 from rest_framework.views import APIView
 from .serializers import CustomerSerializer, OrderSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
@@ -15,6 +16,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
