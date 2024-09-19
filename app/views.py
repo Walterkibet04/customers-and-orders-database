@@ -19,7 +19,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
     def create(self, request, *args, **kwargs):
-        
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
             order = Order.objects.get(id=response.data['id'])
